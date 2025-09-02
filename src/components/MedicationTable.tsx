@@ -138,6 +138,7 @@ export const MedicationTable: React.FC<MedicationTableProps> = ({ sections, head
             className="sticky-section-header" 
             style={{ 
               position: 'sticky', 
+              top: headerOffset + 12,
               zIndex: 50,
               background: 'hsl(var(--table-header))',
               padding: '12px 16px',
@@ -156,8 +157,8 @@ export const MedicationTable: React.FC<MedicationTableProps> = ({ sections, head
             pagination={false}
             scroll={{ x: 1200 }}
             sticky={{ 
-              offsetHeader: headerOffset + 44, // main header + section header height
-              getContainer: () => window 
+              offsetHeader: headerOffset + 44 + 12, // main header + section header height + margin
+              getContainer: () => document.querySelector('.scrollable-container') as any 
             }}
             size="small"
             className="[&_.ant-table-thead>tr>th]:bg-table-header [&_.ant-table-thead>tr>th]:border-table-border [&_.ant-table-thead>tr>th]:text-foreground [&_.ant-table-thead>tr>th]:font-medium [&_.ant-table-tbody>tr>td]:border-table-border [&_.ant-table-tbody>tr:hover>td]:bg-table-hover"
