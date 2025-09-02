@@ -24,7 +24,11 @@ export const PatientHeader: React.FC<PatientHeaderProps> = ({
   onGenerateScript
 }) => {
   const scrollToSection = (sectionTitle: string) => {
-    const sectionElement = document.getElementById(`section-${sectionTitle.toLowerCase()}`);
+    console.log('Scrolling to section:', sectionTitle);
+    const sectionId = `section-${sectionTitle.toLowerCase()}`;
+    const sectionElement = document.getElementById(sectionId);
+    console.log('Found section element:', sectionElement, 'with ID:', sectionId);
+    
     if (sectionElement) {
       const headerElement = document.getElementById('patient-header');
       const headerHeight = headerElement ? headerElement.offsetHeight : 0;
@@ -33,10 +37,17 @@ export const PatientHeader: React.FC<PatientHeaderProps> = ({
       const elementTop = sectionElement.offsetTop;
       const scrollPosition = elementTop - offset;
       
+      console.log('Header height:', headerHeight, 'Element top:', elementTop, 'Scroll position:', scrollPosition);
+      
       window.scrollTo({
         top: scrollPosition,
         behavior: 'smooth'
       });
+    } else {
+      console.log('Section element not found for ID:', sectionId);
+      // Fallback: try to find all elements with section IDs
+      const allSections = document.querySelectorAll('[id^="section-"]');
+      console.log('Available section elements:', Array.from(allSections).map(el => el.id));
     }
   };
   useEffect(() => {
