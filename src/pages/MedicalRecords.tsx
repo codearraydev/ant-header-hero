@@ -77,7 +77,7 @@ const MedicalRecords: React.FC = () => {
         },
       }}
     >
-      <div className="scrollable-container" style={{ height: '100vh', overflowY: 'auto', ['--header-offset' as any]: `${headerOffset + 12}px` }}>
+      <div className="scrollable-container" style={{ height: '100vh', overflowY: 'auto', ['--header-offset' as any]: `${headerOffset}px` }}>
         <PatientHeader
           patient={mockPatient}
           onSearch={handleSearch}
