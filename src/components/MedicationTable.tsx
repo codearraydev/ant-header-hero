@@ -21,8 +21,8 @@ export const MedicationTable: React.FC<MedicationTableProps> = ({ sections, head
   const columns: ColumnsType<Medication> = [
     {
       title: 'Medicine',
-      dataIndex: 'name',
-      key: 'name',
+      dataIndex: 'medicineDisplayName',
+      key: 'medicineDisplayName',
       width: 360,
       fixed: 'left',
       render: (_, record) => (
@@ -30,14 +30,14 @@ export const MedicationTable: React.FC<MedicationTableProps> = ({ sections, head
           <div className="flex items-start justify-between">
             <div className="flex-1">
               <Text strong className="text-primary text-sm block mb-1">
-                {record.name}
+                {record.medicineDisplayName}
               </Text>
               <div className="space-y-1">
                 <Text className="text-xs text-muted-foreground block italic">
-                  {record.details}
+                  {record.precriptionInstruction}
                 </Text>
                 <Text className="text-xs text-muted-foreground block">
-                  Start: {record.startDate}
+                  Start: {new Date(record.startDate).toLocaleDateString()}
                 </Text>
               </div>
               {record.badges && record.badges.length > 0 && (
@@ -67,8 +67,8 @@ export const MedicationTable: React.FC<MedicationTableProps> = ({ sections, head
     },
     {
       title: 'Route',
-      dataIndex: 'route',
-      key: 'route',
+      dataIndex: 'routeDisplayName',
+      key: 'routeDisplayName',
       width: 120,
       render: (route) => <Text className="text-sm">{route}</Text>,
     },
@@ -81,51 +81,51 @@ export const MedicationTable: React.FC<MedicationTableProps> = ({ sections, head
     },
     {
       title: 'Frequency',
-      dataIndex: 'frequency',
-      key: 'frequency',
+      dataIndex: 'frequencyDescription',
+      key: 'frequencyDescription',
       width: 100,
       render: (frequency) => <Text className="text-sm">{frequency}</Text>,
     },
     {
       title: 'Date Last Rx',
-      dataIndex: 'dateLastRx',
-      key: 'dateLastRx',
+      dataIndex: 'insertedAt',
+      key: 'insertedAt',
       width: 120,
-      render: (date) => <Text className="text-sm">{date}</Text>,
+      render: (date) => <Text className="text-sm">{new Date(date).toLocaleDateString()}</Text>,
     },
     {
       title: 'Date Last Dispense',
-      dataIndex: 'dateLastDispense',
-      key: 'dateLastDispense',
+      dataIndex: 'dispenseStartDate',
+      key: 'dispenseStartDate',
       width: 140,
       render: (_, record) => (
         <div className="flex items-center space-x-2">
           <InfoCircleOutlined className="text-muted-foreground" />
           <div>
-            <Text className="text-sm block">Date: {record.dateLastDispense}</Text>
-            <Text className="text-xs text-muted-foreground">Time: {record.lastUpdate}</Text>
+            <Text className="text-sm block">Date: {record.dispenseStartDate || '-'}</Text>
+            <Text className="text-xs text-muted-foreground">Time: {new Date(record.updatedAt).toLocaleString()}</Text>
           </div>
         </div>
       ),
     },
     {
       title: 'Last Update',
-      dataIndex: 'lastUpdate',
-      key: 'lastUpdate',
+      dataIndex: 'updatedAt',
+      key: 'updatedAt',
       width: 120,
       render: (_, record) => (
         <div>
-          <Text className="text-sm block">Status: {record.status}</Text>
-          <Text className="text-xs text-muted-foreground">Date: {record.lastUpdate}</Text>
+          <Text className="text-sm block">Status: {record.isInUse ? 'Active' : 'Inactive'}</Text>
+          <Text className="text-xs text-muted-foreground">Date: {new Date(record.updatedAt).toLocaleString()}</Text>
         </div>
       ),
     },
     {
       title: 'eScript',
-      dataIndex: 'eScript',
-      key: 'eScript',
+      dataIndex: 'userName',
+      key: 'userName',
       width: 100,
-      render: (eScript) => <Text className="text-sm">{eScript}</Text>,
+      render: (userName) => <Text className="text-sm">By: {userName}</Text>,
     },
   ];
 
@@ -153,7 +153,7 @@ export const MedicationTable: React.FC<MedicationTableProps> = ({ sections, head
           <Table
             columns={columns}
             dataSource={section.medications}
-            rowKey="id"
+            rowKey="activeMedID"
             pagination={false}
             scroll={{ x: 1200 }}
             sticky={{ 

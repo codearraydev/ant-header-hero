@@ -7,19 +7,24 @@ export interface Patient {
 }
 
 export interface Medication {
-  id: string;
-  name: string;
-  details: string;
+  activeMedID: string;
+  medicineDisplayName: string;
+  precriptionInstruction: string;
   startDate: string;
-  strength: string;
-  route: 'Intramuscular' | 'Oral' | 'Intravenous' | 'Topical' | 'Subcutaneous';
+  strength: string | null;
+  routeDisplayName: string;
   dose: string;
-  frequency: string;
-  dateLastRx: string;
-  dateLastDispense: string;
-  lastUpdate: string;
-  eScript: string;
-  status: 'Active' | 'Inactive' | 'Discontinued';
+  frequencyDescription: string;
+  insertedAt: string;
+  updatedAt: string;
+  userName: string;
+  isSAMedicine: boolean;
+  isMedAdmin: boolean;
+  titrationID: string;
+  isInUse: boolean;
+  isMedOnHold: boolean;
+  isMedStopped: boolean;
+  dispenseStartDate: string | null;
   badges?: ('Administered' | 'SA' | 'Titrated Med')[];
 }
 
