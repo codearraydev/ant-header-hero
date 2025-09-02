@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Alert, Button, Input, Space, Typography } from 'antd';
 import { SearchOutlined, PrinterOutlined, CopyOutlined, ExportOutlined, FileTextOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Patient } from '../types/medication';
 
 const { Title, Text } = Typography;
@@ -65,6 +66,7 @@ export const PatientHeader: React.FC<PatientHeaderProps> = ({
       {/* Patient Info Row */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-6">
+          <SidebarTrigger className="mr-2" />
           <div className="flex items-center space-x-2">
             <span className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
               <Text className="text-primary font-medium">A</Text>
