@@ -137,7 +137,6 @@ export const MedicationTable: React.FC<MedicationTableProps> = ({ sections, head
             className="sticky-section-header" 
             style={{ 
               position: 'sticky', 
-              top: '140px', 
               zIndex: 50,
               background: 'hsl(var(--table-header))',
               padding: '12px 16px',
@@ -155,10 +154,6 @@ export const MedicationTable: React.FC<MedicationTableProps> = ({ sections, head
             rowKey="id"
             pagination={false}
             scroll={{ x: 1200 }}
-            sticky={{ 
-              offsetHeader: 184, // 140 (main header) + 44 (section header)
-              getContainer: () => window 
-            }}
             size="small"
             className="[&_.ant-table-thead>tr>th]:bg-table-header [&_.ant-table-thead>tr>th]:border-table-border [&_.ant-table-thead>tr>th]:text-foreground [&_.ant-table-thead>tr>th]:font-medium [&_.ant-table-tbody>tr>td]:border-table-border [&_.ant-table-tbody>tr:hover>td]:bg-table-hover"
             rowClassName="hover:bg-table-hover"

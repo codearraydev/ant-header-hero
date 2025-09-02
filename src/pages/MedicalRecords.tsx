@@ -6,16 +6,24 @@ import { mockPatient, mockMedicationSections } from '../data/mockData';
 
 const MedicalRecords: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
+  const [headerOffset, setHeaderOffset] = useState<number>(0);
 
   useEffect(() => {
     console.log('MedicalRecords component mounted');
-    
+
+    const updateOffset = () => {
+      const headerEl = document.getElementById('patient-header');
+      const height = headerEl ? headerEl.getBoundingClientRect().height : 0;
+      setHeaderOffset(height);
+      console.log('Computed header height:', height);
+    };
+
     // Debugging: Check if sticky elements are working
     const checkSticky = () => {
       const stickyElements = document.querySelectorAll('.sticky-header, .sticky-section-header');
       console.log('Found sticky elements:', stickyElements.length);
       stickyElements.forEach((el, index) => {
-        const computedStyle = window.getComputedStyle(el);
+        const computedStyle = window.getComputedStyle(el as Element);
         console.log(`Sticky element ${index}:`, {
           position: computedStyle.position,
           top: computedStyle.top,
@@ -23,8 +31,17 @@ const MedicalRecords: React.FC = () => {
         });
       });
     };
-    
-    setTimeout(checkSticky, 1000); // Check after component renders
+
+    // Initial measurement after render
+    setTimeout(() => {
+      updateOffset();
+      checkSticky();
+    }, 300);
+
+    window.addEventListener('resize', updateOffset);
+    return () => {
+      window.removeEventListener('resize', updateOffset);
+    };
   }, []);
 
   const handleSearch = (value: string) => {
@@ -60,7 +77,7 @@ const MedicalRecords: React.FC = () => {
         },
       }}
     >
-      <div className="scrollable-container" style={{ height: '100vh', overflowY: 'auto' }}>
+      <div className="scrollable-container" style={{ height: '100vh', overflowY: 'auto', ['--header-offset' as any]: `${headerOffset}px` }}>
         <PatientHeader
           patient={mockPatient}
           onSearch={handleSearch}
@@ -69,7 +86,7 @@ const MedicalRecords: React.FC = () => {
           onExportChart={handleExportChart}
           onGenerateScript={handleGenerateScript}
         />
-        <MedicationTable sections={mockMedicationSections} headerOffset={140} />
+        <MedicationTable sections={mockMedicationSections} headerOffset={headerOffset} />
       </div>
     </ConfigProvider>
   );

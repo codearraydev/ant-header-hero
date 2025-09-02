@@ -143,7 +143,7 @@ All colors MUST be HSL.
 
 .sticky-section-header {
   position: sticky !important;
-  top: 140px !important;
+  top: var(--header-offset, 0px) !important;
   z-index: 50 !important;
   background: hsl(var(--table-header)) !important;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;

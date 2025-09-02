@@ -28,7 +28,7 @@ export const PatientHeader: React.FC<PatientHeaderProps> = ({
   }, []);
 
   return (
-    <div className="sticky-header" style={{ 
+    <div id="patient-header" className="sticky-header" style={{ 
       position: 'sticky', 
       top: 0, 
       zIndex: 100,
