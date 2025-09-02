@@ -52,6 +52,20 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				medical: {
+					success: 'hsl(var(--medical-success))',
+					warning: 'hsl(var(--medical-warning))',
+					danger: 'hsl(var(--medical-danger))',
+					info: 'hsl(var(--medical-info))',
+					administered: 'hsl(var(--medical-administered))',
+					titrated: 'hsl(var(--medical-titrated))',
+					sa: 'hsl(var(--medical-sa))'
+				},
+				table: {
+					header: 'hsl(var(--table-header))',
+					hover: 'hsl(var(--table-row-hover))',
+					border: 'hsl(var(--table-border))'
+				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
