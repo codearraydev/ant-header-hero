@@ -155,7 +155,7 @@ export const MedicationTable: React.FC<MedicationTableProps> = ({ sections, head
             pagination={false}
             scroll={{ x: 1200 }}
             sticky={{ 
-              offsetHeader: headerOffset + 44, // main header + section header height
+              offsetHeader: headerOffset + 56, // main header + section header height + margin
               getContainer: () => window 
             }}
             size="small"
