@@ -155,13 +155,13 @@ export const MedicationTable: React.FC<MedicationTableProps> = ({ sections, head
             dataSource={section.medications}
             rowKey="activeMedID"
             pagination={false}
-            scroll={{ x: 1200 }}
+            scroll={{ x: 1400, scrollToFirstRowOnChange: true }}
             sticky={{ 
               offsetHeader: headerOffset + 44 + 12, // main header + section header height + margin
               getContainer: () => document.querySelector('.scrollable-container') as any 
             }}
             size="small"
-            className="[&_.ant-table-thead>tr>th]:bg-table-header [&_.ant-table-thead>tr>th]:border-table-border [&_.ant-table-thead>tr>th]:text-foreground [&_.ant-table-thead>tr>th]:font-medium [&_.ant-table-tbody>tr>td]:border-table-border [&_.ant-table-tbody>tr:hover>td]:bg-table-hover"
+            className="[&_.ant-table-thead>tr>th]:bg-table-header [&_.ant-table-thead>tr>th]:border-table-border [&_.ant-table-thead>tr>th]:text-foreground [&_.ant-table-thead>tr>th]:font-medium [&_.ant-table-tbody>tr>td]:border-table-border [&_.ant-table-tbody>tr:hover>td]:bg-table-hover [&_.ant-table-ping-left]:shadow-[inset_10px_0_8px_-8px_rgba(0,0,0,0.15)] [&_.ant-table-ping-right]:shadow-[inset_-10px_0_8px_-8px_rgba(0,0,0,0.15)]"
             rowClassName="hover:bg-table-hover"
           />
         </div>
