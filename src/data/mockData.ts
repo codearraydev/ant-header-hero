@@ -1,4 +1,4 @@
-import { Patient, MedicationSection } from '../types/medication';
+import { Patient, MedicationSection, Medication } from '../types/medication';
 
 export const mockPatient: Patient = {
   id: '1',
@@ -8,113 +8,98 @@ export const mockPatient: Patient = {
   gender: 'M',
 };
 
+function genMed(id: string, name: string, overrides: Partial<Medication> = {}): Medication {
+  return {
+    id,
+    name,
+    details: overrides.details ?? 'Use as directed',
+    startDate: overrides.startDate ?? '19/08/2025',
+    strength: overrides.strength ?? '1 mg',
+    route: overrides.route ?? 'Oral',
+    dose: overrides.dose ?? '1 tablet',
+    frequency: overrides.frequency ?? 'mane',
+    dateLastRx: overrides.dateLastRx ?? '21/08/2025',
+    dateLastDispense: overrides.dateLastDispense ?? '-',
+    lastUpdate: overrides.lastUpdate ?? '21/08/2025 18:37',
+    eScript: overrides.eScript ?? 'Status: Active',
+    status: overrides.status ?? 'Active',
+    badges: overrides.badges,
+  };
+}
+
+const regularMeds: Medication[] = Array.from({ length: 10 }, (_, i) =>
+  genMed(
+    `reg-${i + 1}`,
+    `Regular medicine ${i + 1}`,
+    i === 2
+      ? {
+          name: 'Rituximab (ECP) 1 mg injection',
+          details: 'Inject 120 to 130 mg at midday',
+          route: 'Intravenous',
+          dose: '120 to 130 mg',
+          frequency: 'midi',
+          badges: ['Administered', 'SA'],
+        }
+      : i === 0
+      ? {
+          name: 'Cocaine 4% (40 mg/mL) solution',
+          details: 'Take Twelve mL once daily',
+          route: 'Intramuscular',
+          dose: '12 mL',
+          strength: '4% (40 mg / 1 mL)',
+          frequency: 'once daily',
+        }
+      : {}
+  )
+);
+
+const prnMeds: Medication[] = Array.from({ length: 10 }, (_, i) =>
+  genMed(
+    `prn-${i + 1}`,
+    `PRN medicine ${i + 1}`,
+    i === 0
+      ? {
+          name: 'Cyclogyl eye drops 1% (10 mg/mL)',
+          details: 'Use One Hundred Fifty drop(s) at night when required',
+          route: 'Intravenous',
+          dose: '150 drop(s)',
+          frequency: 'nocte',
+          strength: '1% (10 mg / 1 mL)',
+          badges: ['Titrated Med'],
+        }
+      : {}
+  )
+);
+
+const statMeds: Medication[] = Array.from({ length: 10 }, (_, i) =>
+  genMed(
+    `stat-${i + 1}`,
+    `STAT medicine ${i + 1}`,
+    i === 0
+      ? {
+          name: 'Cyclogyl eye drops 1% (10 mg/mL)',
+          details: 'Use 147 to 198 drop(s) immediately',
+          route: 'Intravenous',
+          dose: '147 to 198 drop(s)',
+          frequency: 'STAT',
+          strength: '1% (10 mg / 1 mL)',
+          badges: ['Titrated Med', 'Administered'],
+        }
+      : { frequency: 'STAT' }
+  )
+);
+
 export const mockMedicationSections: MedicationSection[] = [
   {
-    title: 'Regular Medicine',
-    medications: [
-      {
-        id: '1',
-        name: 'Cocaine 4% (40 mg/mL) solution',
-        details: 'Take Twelve mL once daily',
-        startDate: '21/08/2025',
-        strength: '4% (40 mg / 1 mL)',
-        route: 'Intramuscular',
-        dose: '12 mL',
-        frequency: 'once daily',
-        dateLastRx: '02/09/2025',
-        dateLastDispense: 'Date: 02/09/2025',
-        lastUpdate: '12 m(s)',
-        eScript: 'Status: Active',
-        status: 'Active',
-      },
-      {
-        id: '2',
-        name: 'Ativan - lorazepam 1 mg tablet',
-        details: 'Take One tablet in the morning for Infection',
-        startDate: '19/08/2025',
-        strength: '1 mg',
-        route: 'Oral',
-        dose: '1 tablet',
-        frequency: 'mane',
-        dateLastRx: '21/08/2025',
-        dateLastDispense: 'Date: 21/08/2025',
-        lastUpdate: '14 tab(s)',
-        eScript: 'Status: Active',
-        status: 'Active',
-      },
-      {
-        id: '3',
-        name: 'Rituximab (Baxter) (Mabthera) - rituximab (ECP) 1 mg injection',
-        details: 'Inject 120 to 150 mg at midday',
-        startDate: '13/08/2025 please blister pack',
-        strength: '1 mg',
-        route: 'Intravenous',
-        dose: '120 to 130 mg',
-        frequency: 'midi',
-        dateLastRx: '19/08/2025',
-        dateLastDispense: 'Date: 19/08/2025',
-        lastUpdate: '12 Day(s)',
-        eScript: 'Status: Active',
-        status: 'Active',
-        badges: ['Administered', 'SA'],
-      },
-      {
-        id: '4',
-        name: 'morphine sulfate 5 mg/mL injection, ampoule',
-        details: '',
-        startDate: '',
-        strength: '',
-        route: 'Intramuscular',
-        dose: '',
-        frequency: '',
-        dateLastRx: '',
-        dateLastDispense: '',
-        lastUpdate: '',
-        eScript: '',
-        status: 'Active',
-      },
-    ],
+    title: 'Regular',
+    medications: regularMeds,
   },
   {
-    title: 'PRN Medicine',
-    medications: [
-      {
-        id: '5',
-        name: 'Cyclogyl - cyclopentolate hydrochloride 1% (10 mg/mL) eye drops',
-        details: 'Use One Hundred Fifty drop(s) at night when required',
-        startDate: '12/08/2025',
-        strength: '1% (10 mg / 1 mL)',
-        route: 'Intravenous',
-        dose: '150 drop(s)',
-        frequency: 'nocte',
-        dateLastRx: '19/08/2025',
-        dateLastDispense: 'Date: 19/08/2025',
-        lastUpdate: '10 Day(s)',
-        eScript: 'Status: Active',
-        status: 'Active',
-        badges: ['Titrated Med'],
-      },
-    ],
+    title: 'PRN',
+    medications: prnMeds,
   },
   {
-    title: 'STAT Medicine',
-    medications: [
-      {
-        id: '6',
-        name: 'Cyclogyl - cyclopentolate hydrochloride 1% (10 mg/mL) eye drops',
-        details: 'Use 147 to 198 drop(s) immediately',
-        startDate: '13/08/2025',
-        strength: '1% (10 mg / 1 mL)',
-        route: 'Intravenous',
-        dose: '147 to 198 drop(s)',
-        frequency: 'STAT',
-        dateLastRx: '13/08/2025',
-        dateLastDispense: 'Date: 13/08/2025',
-        lastUpdate: '1 Day(s)',
-        eScript: 'Status: Active',
-        status: 'Active',
-        badges: ['Titrated Med', 'Administered'],
-      },
-    ],
+    title: 'Stat',
+    medications: statMeds,
   },
 ];

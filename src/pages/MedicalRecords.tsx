@@ -4,6 +4,8 @@ import { PatientHeader } from '../components/PatientHeader';
 import { MedicationTable } from '../components/MedicationTable';
 import { mockPatient, mockMedicationSections } from '../data/mockData';
 
+const HEADER_OFFSET = 128; // height of sticky page header in px
+
 const MedicalRecords: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
 
@@ -50,7 +52,7 @@ const MedicalRecords: React.FC = () => {
           onGenerateScript={handleGenerateScript}
         />
         <div className="overflow-auto">
-          <MedicationTable sections={mockMedicationSections} />
+          <MedicationTable sections={mockMedicationSections} headerOffset={HEADER_OFFSET} />
         </div>
       </div>
     </ConfigProvider>

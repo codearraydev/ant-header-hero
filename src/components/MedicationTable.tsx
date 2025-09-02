@@ -9,15 +9,16 @@ const { Text, Paragraph } = Typography;
 
 interface MedicationTableProps {
   sections: MedicationSection[];
+  headerOffset?: number; // pixels from top for sticky headers
 }
 
-export const MedicationTable: React.FC<MedicationTableProps> = ({ sections }) => {
+export const MedicationTable: React.FC<MedicationTableProps> = ({ sections, headerOffset = 128 }) => {
   const columns: ColumnsType<Medication> = [
     {
-      title: 'Regular Medicine',
+      title: 'Medicine',
       dataIndex: 'name',
       key: 'name',
-      width: 300,
+      width: 360,
       fixed: 'left',
       render: (_, record) => (
         <div className="py-2">
@@ -127,7 +128,7 @@ export const MedicationTable: React.FC<MedicationTableProps> = ({ sections }) =>
     <div className="bg-card">
       {sections.map((section, sectionIndex) => (
         <div key={sectionIndex} className="mb-8">
-          <div className="sticky top-0 bg-table-header border-b border-table-border py-3 px-4 z-10">
+          <div className="sticky bg-table-header border-b border-table-border py-3 px-4 z-10" style={{ top: headerOffset }}>
             <Text strong className="text-lg text-foreground">
               {section.title}
             </Text>
@@ -138,8 +139,9 @@ export const MedicationTable: React.FC<MedicationTableProps> = ({ sections }) =>
             rowKey="id"
             pagination={false}
             scroll={{ x: 1200 }}
+            sticky={{ offsetHeader: headerOffset + 44 }}
             size="small"
-            className="[&_.ant-table-thead>tr>th]:bg-table-header [&_.ant-table-thead>tr>th]:border-table-border [&_.ant-table-thead>tr>th]:text-foreground [&_.ant-table-thead>tr>th]:font-medium [&_.ant-table-tbody>tr>td]:border-table-border [&_.ant-table-tbody>tr:hover>td]:bg-table-hover [&_.ant-table-thead>tr>th]:sticky [&_.ant-table-thead>tr>th]:top-[52px] [&_.ant-table-thead>tr>th]:z-[5]"
+            className="[&_.ant-table-thead>tr>th]:bg-table-header [&_.ant-table-thead>tr>th]:border-table-border [&_.ant-table-thead>tr>th]:text-foreground [&_.ant-table-thead>tr>th]:font-medium [&_.ant-table-tbody>tr>td]:border-table-border [&_.ant-table-tbody>tr:hover>td]:bg-table-hover"
             rowClassName="hover:bg-table-hover"
           />
         </div>

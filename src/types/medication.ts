@@ -24,6 +24,6 @@ export interface Medication {
 }
 
 export interface MedicationSection {
-  title: 'Regular Medicine' | 'PRN Medicine' | 'STAT Medicine';
+  title: 'Regular' | 'PRN' | 'Stat';
   medications: Medication[];
 }
