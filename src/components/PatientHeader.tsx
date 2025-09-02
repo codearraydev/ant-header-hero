@@ -23,6 +23,22 @@ export const PatientHeader: React.FC<PatientHeaderProps> = ({
   onExportChart,
   onGenerateScript
 }) => {
+  const scrollToSection = (sectionTitle: string) => {
+    const sectionElement = document.getElementById(`section-${sectionTitle.toLowerCase()}`);
+    if (sectionElement) {
+      const headerElement = document.getElementById('patient-header');
+      const headerHeight = headerElement ? headerElement.offsetHeight : 0;
+      const offset = headerHeight + 12; // 12px margin
+      
+      const elementTop = sectionElement.offsetTop;
+      const scrollPosition = elementTop - offset;
+      
+      window.scrollTo({
+        top: scrollPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
   useEffect(() => {
     console.log('PatientHeader mounted - checking sticky positioning');
   }, []);
@@ -125,10 +141,30 @@ export const PatientHeader: React.FC<PatientHeaderProps> = ({
       </div>
 
       <div className="flex space-x-2 mt-2">
-        <span className="bg-medical-administered text-white px-2 py-1 rounded text-xs">Regular (10)</span>
-        <span className="bg-medical-info text-white px-2 py-1 rounded text-xs">PRN (10)</span>
-        <span className="bg-medical-warning text-white px-2 py-1 rounded text-xs">Stat (10)</span>
-        <span className="bg-medical-danger text-white px-2 py-1 rounded text-xs">Discontinued (1)</span>
+        <button 
+          onClick={() => scrollToSection('Regular')} 
+          className="bg-medical-administered text-white px-2 py-1 rounded text-xs hover:bg-medical-administered/80 transition-colors cursor-pointer"
+        >
+          Regular (10)
+        </button>
+        <button 
+          onClick={() => scrollToSection('PRN')} 
+          className="bg-medical-info text-white px-2 py-1 rounded text-xs hover:bg-medical-info/80 transition-colors cursor-pointer"
+        >
+          PRN (10)
+        </button>
+        <button 
+          onClick={() => scrollToSection('Stat')} 
+          className="bg-medical-warning text-white px-2 py-1 rounded text-xs hover:bg-medical-warning/80 transition-colors cursor-pointer"
+        >
+          Stat (10)
+        </button>
+        <button 
+          onClick={() => scrollToSection('Discontinued')} 
+          className="bg-medical-danger text-white px-2 py-1 rounded text-xs hover:bg-medical-danger/80 transition-colors cursor-pointer"
+        >
+          Discontinued (1)
+        </button>
       </div>
     </div>
   );

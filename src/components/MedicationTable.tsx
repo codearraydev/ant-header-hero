@@ -134,6 +134,7 @@ export const MedicationTable: React.FC<MedicationTableProps> = ({ sections, head
       {sections.map((section, sectionIndex) => (
         <div key={sectionIndex} className="mb-0">
           <div 
+            id={`section-${section.title.toLowerCase()}`}
             className="sticky-section-header" 
             style={{ 
               position: 'sticky', 
