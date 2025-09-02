@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Table, Typography, Space, Button } from 'antd';
 import { MoreOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
@@ -13,6 +13,11 @@ interface MedicationTableProps {
 }
 
 export const MedicationTable: React.FC<MedicationTableProps> = ({ sections, headerOffset = 140 }) => {
+  useEffect(() => {
+    console.log('MedicationTable mounted - sections:', sections.length);
+    console.log('Header offset:', headerOffset);
+  }, [sections.length, headerOffset]);
+
   const columns: ColumnsType<Medication> = [
     {
       title: 'Medicine',
@@ -125,10 +130,21 @@ export const MedicationTable: React.FC<MedicationTableProps> = ({ sections, head
   ];
 
   return (
-    <div className="bg-card">
+    <div className="medication-content">
       {sections.map((section, sectionIndex) => (
         <div key={sectionIndex} className="mb-0">
-          <div className="medication-section-header py-3 px-4 border-b border-table-border" style={{ top: `${headerOffset}px` }}>
+          <div 
+            className="sticky-section-header" 
+            style={{ 
+              position: 'sticky', 
+              top: '140px', 
+              zIndex: 50,
+              background: 'hsl(var(--table-header))',
+              padding: '12px 16px',
+              borderBottom: '1px solid hsl(var(--table-border))',
+              boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05)'
+            }}
+          >
             <Text strong className="text-lg text-foreground">
               {section.title}
             </Text>
@@ -140,11 +156,11 @@ export const MedicationTable: React.FC<MedicationTableProps> = ({ sections, head
             pagination={false}
             scroll={{ x: 1200 }}
             sticky={{ 
-              offsetHeader: headerOffset + 44,
+              offsetHeader: 184, // 140 (main header) + 44 (section header)
               getContainer: () => window 
             }}
             size="small"
-            className="medication-table [&_.ant-table-thead>tr>th]:medication-table-header [&_.ant-table-thead>tr>th]:border-table-border [&_.ant-table-thead>tr>th]:text-foreground [&_.ant-table-thead>tr>th]:font-medium [&_.ant-table-tbody>tr>td]:border-table-border [&_.ant-table-tbody>tr:hover>td]:bg-table-hover"
+            className="[&_.ant-table-thead>tr>th]:bg-table-header [&_.ant-table-thead>tr>th]:border-table-border [&_.ant-table-thead>tr>th]:text-foreground [&_.ant-table-thead>tr>th]:font-medium [&_.ant-table-tbody>tr>td]:border-table-border [&_.ant-table-tbody>tr:hover>td]:bg-table-hover"
             rowClassName="hover:bg-table-hover"
           />
         </div>

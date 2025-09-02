@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Alert, Button, Input, Space, Typography } from 'antd';
 import { SearchOutlined, PrinterOutlined, CopyOutlined, ExportOutlined, FileTextOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import { Patient } from '../types/medication';
@@ -23,8 +23,20 @@ export const PatientHeader: React.FC<PatientHeaderProps> = ({
   onExportChart,
   onGenerateScript
 }) => {
+  useEffect(() => {
+    console.log('PatientHeader mounted - checking sticky positioning');
+  }, []);
+
   return (
-    <div className="main-patient-header bg-card p-6 border-b border-table-border shadow-sm">
+    <div className="sticky-header" style={{ 
+      position: 'sticky', 
+      top: 0, 
+      zIndex: 100,
+      background: 'hsl(var(--card))',
+      padding: '24px',
+      borderBottom: '1px solid hsl(var(--table-border))',
+      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)'
+    }}>
       {/* Patient Info Row */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-6">
@@ -115,7 +127,7 @@ export const PatientHeader: React.FC<PatientHeaderProps> = ({
       <div className="flex space-x-2 mt-2">
         <span className="bg-medical-administered text-white px-2 py-1 rounded text-xs">Regular (10)</span>
         <span className="bg-medical-info text-white px-2 py-1 rounded text-xs">PRN (10)</span>
-        <span className="bg-medical-warning text-white px-2 py-1 rounded text-xs">STAT (10)</span>
+        <span className="bg-medical-warning text-white px-2 py-1 rounded text-xs">Stat (10)</span>
         <span className="bg-medical-danger text-white px-2 py-1 rounded text-xs">Discontinued (1)</span>
       </div>
     </div>

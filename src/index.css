@@ -122,22 +122,39 @@ All colors MUST be HSL.
   }
 }
 
-/* Additional sticky header styles */
-.medication-section-header {
-  position: sticky !important;
-  background: hsl(var(--table-header)) !important;
-  z-index: 20 !important;
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
 }
 
-.medication-table-header {
+/* Sticky positioning fix */
+.sticky-header {
   position: sticky !important;
-  background: hsl(var(--table-header)) !important;
-  z-index: 15 !important;
-}
-
-.main-patient-header {
-  position: sticky !important;
-  top: 0 !important;
-  z-index: 50 !important;
+  top: 0px !important;
+  z-index: 100 !important;
   background: hsl(var(--card)) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+.sticky-section-header {
+  position: sticky !important;
+  top: 140px !important;
+  z-index: 50 !important;
+  background: hsl(var(--table-header)) !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+}
+
+.scrollable-container {
+  height: 100vh !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+
+.medication-content {
+  padding-top: 0 !important;
 }

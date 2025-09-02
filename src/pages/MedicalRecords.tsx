@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ConfigProvider } from 'antd';
 import { PatientHeader } from '../components/PatientHeader';
 import { MedicationTable } from '../components/MedicationTable';
@@ -6,6 +6,26 @@ import { mockPatient, mockMedicationSections } from '../data/mockData';
 
 const MedicalRecords: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
+
+  useEffect(() => {
+    console.log('MedicalRecords component mounted');
+    
+    // Debugging: Check if sticky elements are working
+    const checkSticky = () => {
+      const stickyElements = document.querySelectorAll('.sticky-header, .sticky-section-header');
+      console.log('Found sticky elements:', stickyElements.length);
+      stickyElements.forEach((el, index) => {
+        const computedStyle = window.getComputedStyle(el);
+        console.log(`Sticky element ${index}:`, {
+          position: computedStyle.position,
+          top: computedStyle.top,
+          zIndex: computedStyle.zIndex
+        });
+      });
+    };
+    
+    setTimeout(checkSticky, 1000); // Check after component renders
+  }, []);
 
   const handleSearch = (value: string) => {
     setSearchTerm(value);
@@ -40,7 +60,7 @@ const MedicalRecords: React.FC = () => {
         },
       }}
     >
-      <div className="min-h-screen bg-background">
+      <div className="scrollable-container" style={{ height: '100vh', overflowY: 'auto' }}>
         <PatientHeader
           patient={mockPatient}
           onSearch={handleSearch}
@@ -49,9 +69,7 @@ const MedicalRecords: React.FC = () => {
           onExportChart={handleExportChart}
           onGenerateScript={handleGenerateScript}
         />
-        <div className="relative">
-          <MedicationTable sections={mockMedicationSections} headerOffset={140} />
-        </div>
+        <MedicationTable sections={mockMedicationSections} headerOffset={140} />
       </div>
     </ConfigProvider>
   );
