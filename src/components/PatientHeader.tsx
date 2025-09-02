@@ -24,7 +24,7 @@ export const PatientHeader: React.FC<PatientHeaderProps> = ({
   onGenerateScript
 }) => {
   return (
-    <div className="bg-card p-6 border-b border-table-border sticky top-0 z-50 shadow-sm">
+    <div className="main-patient-header bg-card p-6 border-b border-table-border shadow-sm">
       {/* Patient Info Row */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-6">

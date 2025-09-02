@@ -122,12 +122,22 @@ All colors MUST be HSL.
   }
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
+/* Additional sticky header styles */
+.medication-section-header {
+  position: sticky !important;
+  background: hsl(var(--table-header)) !important;
+  z-index: 20 !important;
+}
 
-  body {
-    @apply bg-background text-foreground;
-  }
+.medication-table-header {
+  position: sticky !important;
+  background: hsl(var(--table-header)) !important;
+  z-index: 15 !important;
+}
+
+.main-patient-header {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 50 !important;
+  background: hsl(var(--card)) !important;
 }
